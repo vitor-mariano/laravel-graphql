@@ -12,11 +12,11 @@ class UserTest extends TestCase
     use DatabaseMigrations;
     
     /**
-     * Test if user is created successfully.
+     * Test if migration and model are configured correctelly.
      *
      * @return void
      */
-    public function testUserIsCreatedSuccessfully()
+    public function testSanity()
     {
         $user = factory(User::class)->create();
         

@@ -40,6 +40,10 @@ class CreateUserMutation extends Mutation
 
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        return User::create($args);
+        $fields = array_merge($args, [
+            'password' => bcrypt($args['password'])
+        ]);
+        
+        return User::create($fields);
     }
 }
