@@ -77,7 +77,7 @@ class CreateUserMutationTest extends TestCase
      *
      * @return void
      */
-    public function testFieldAreRequired()
+    public function testFieldsAreRequired()
     {
         $query = '
             mutation createUser(
