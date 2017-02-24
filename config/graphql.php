@@ -91,9 +91,11 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'user' => \App\GraphQL\Query\UserQuery::class
+                'user' => \App\GraphQL\Query\UserQuery::class,
+                'profile' => \App\GraphQL\Query\ProfileQuery::class
             ],
             'mutation' => [
+                'createToken' => \App\GraphQL\Mutation\CreateTokenMutation::class,
                 'createUser' => \App\GraphQL\Mutation\CreateUserMutation::class
             ]
         ]
@@ -115,6 +117,7 @@ return [
     // ]
     //
     'types' => [
+        \App\GraphQL\Type\AuthType::class,
         \App\GraphQL\Type\UserType::class
     ],
 

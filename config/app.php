@@ -166,6 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Folklore\GraphQL\ServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
 
@@ -210,6 +211,8 @@ return [
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
