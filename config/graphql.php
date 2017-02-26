@@ -97,7 +97,8 @@ return [
             ],
             'mutation' => [
                 'createToken' => \App\GraphQL\Mutation\CreateTokenMutation::class,
-                'createUser' => \App\GraphQL\Mutation\CreateUserMutation::class
+                'createUser' => \App\GraphQL\Mutation\CreateUserMutation::class,
+                'createPost' => \App\GraphQL\Mutation\CreatePostMutation::class
             ]
         ]
     ],
