@@ -6,11 +6,11 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as BaseType;
 use GraphQL;
 
-class UserType extends BaseType
+class PostType extends BaseType
 {
     protected $attributes = [
-        'name' => 'User',
-        'description' => 'User type.'
+        'name' => 'Post',
+        'description' => 'Post type.'
     ];
 
     public function fields()
@@ -19,17 +19,11 @@ class UserType extends BaseType
             'id' => [
                 'type' => Type::nonNull(Type::int())
             ],
-            'name' => [
+            'body' => [
                 'type' => Type::nonNull(Type::string())
             ],
-            'email' => [
-                'type' => Type::nonNull(Type::string())
-            ],
-            // 'password' => [
-            //     'type' => Type::nonNull(Type::string())
-            // ],
-            'posts' => [
-                'type' => Type::listOf(GraphQL::type('Post'))
+            'user' => [
+                'type' => GraphQL::type('User')
             ],
             'created_at' => [
                 'type' => Type::nonNull(Type::string())
