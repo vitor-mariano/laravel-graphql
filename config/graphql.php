@@ -93,7 +93,8 @@ return [
             'query' => [
                 'user' => \App\GraphQL\Query\UserQuery::class,
                 'profile' => \App\GraphQL\Query\ProfileQuery::class,
-                'post' => \App\GraphQL\Query\PostQuery::class
+                'post' => \App\GraphQL\Query\PostQuery::class,
+                'comment' => \App\GraphQL\Query\CommentQuery::class
             ],
             'mutation' => [
                 'createToken' => \App\GraphQL\Mutation\CreateTokenMutation::class,
@@ -121,7 +122,8 @@ return [
     'types' => [
         \App\GraphQL\Type\AuthType::class,
         \App\GraphQL\Type\UserType::class,
-        \App\GraphQL\Type\PostType::class
+        \App\GraphQL\Type\PostType::class,
+        \App\GraphQL\Type\CommentType::class
     ],
 
     // This callable will received every Error objects for each errors GraphQL catch.
