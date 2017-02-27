@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\Post;
+use App\Models\Comment;
 
 class PostQueryTest extends TestCase
 {
@@ -21,6 +22,10 @@ class PostQueryTest extends TestCase
     {
         $post = factory(Post::class)->create();
         
+        $comment = $post->comments()->save(
+            factory(Comment::class)->make()
+        );
+        
         $query = '
             query findPost(
                 $id: Int!
@@ -31,6 +36,9 @@ class PostQueryTest extends TestCase
                         name
                     },
                     body,
+                    comments {
+                        body
+                    },
                     created_at,
                     updated_at
                 }
@@ -55,6 +63,11 @@ class PostQueryTest extends TestCase
                         'name' => $post->user->name
                     ],
                     'body' => $post->body,
+                    'comments' => [
+                        [
+                            'body' => $comment->body
+                        ]
+                    ],
                     'created_at' => $post->created_at->format('Y-m-d H:i:s'),
                     'updated_at' => $post->updated_at->format('Y-m-d H:i:s')
                 ]

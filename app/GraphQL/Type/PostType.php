@@ -25,6 +25,9 @@ class PostType extends BaseType
             'user' => [
                 'type' => GraphQL::type('User')
             ],
+            'comments' => [
+                'type' => Type::listOf(GraphQL::type('Comment'))
+            ],
             'created_at' => [
                 'type' => Type::nonNull(Type::string())
             ],
