@@ -13,7 +13,7 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['body'];
+    protected $fillable = ['body', 'post_id'];
     
     /**
      * User who owns the comment.

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Comment;
 
 class UserTest extends TestCase
 {
@@ -30,5 +31,13 @@ class UserTest extends TestCase
         );
         
         $this->assertTrue($post->exists);
+        
+        // Assert relationship with Comment model is well defined.
+        
+        $comment = $user->comments()->save(
+            factory(Comment::class)->make()
+        );
+        
+        $this->assertTrue($comment->exists);
     }
 }
