@@ -99,20 +99,4 @@ class UserQueryTest extends TestCase
             // But cannot get password.
             ->assertJsonFragment(['message' => 'Cannot query field "password" on type "User".']);
     }
-    
-    /**
-     * Test "user posts" query.
-     *
-     * @return void
-     */
-    // public function testUserPosts()
-    // {
-    //     $user = factory(User::class)->create();
-    //     
-    //     $user->posts()->save(
-    //         factory(Post::class)->make()
-    //     );
-    //     
-    //     
-    // }
 }

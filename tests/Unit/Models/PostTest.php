@@ -21,16 +21,8 @@ class PostTest extends TestCase
         $post = factory(Post::class)->create();
         
         $this->assertTrue($post->exists);
-    }
-    
-    /**
-     * Test relationship with User model.
-     * @return void
-     */
-    public function testRelationshipWithUserModel()
-    {
-        $post = factory(Post::class)->create();
         
+        // Assert relationship with User model is well defined.
         $this->assertNotNull($post->user);
     }
 }
