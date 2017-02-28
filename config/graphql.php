@@ -100,7 +100,8 @@ return [
                 'createToken' => \App\GraphQL\Mutation\CreateTokenMutation::class,
                 'createUser' => \App\GraphQL\Mutation\CreateUserMutation::class,
                 'createPost' => \App\GraphQL\Mutation\CreatePostMutation::class,
-                'createComment' => \App\GraphQL\Mutation\CreateCommentMutation::class
+                'createComment' => \App\GraphQL\Mutation\CreateCommentMutation::class,
+                'followUser' => \App\GraphQL\Mutation\FollowUserMutation::class
             ]
         ]
     ],

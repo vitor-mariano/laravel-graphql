@@ -39,5 +39,17 @@ class UserTest extends TestCase
         );
         
         $this->assertTrue($comment->exists);
+        
+        // Test user following.
+        
+        $followable = factory(User::class)->create();
+        
+        $user->following()->attach($followable->id);
+        
+        // Assert user is following another user.
+        $this->assertTrue($user->follows($followable->id));
+        
+        // Assert user is not followed by another user.
+        $this->assertFalse($user->followerdBy($followable->id));
     }
 }

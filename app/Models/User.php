@@ -30,7 +30,7 @@ class User extends Authenticatable
     /**
      * User posts.
      *
-     * @return void
+     * @return Illuminate\Eloquent\Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function posts()
     {
@@ -40,10 +40,52 @@ class User extends Authenticatable
     /**
      * User comments.
      *
-     * @return [type] [description]
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+    
+    /**
+     * Following users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follower_user', 'follower_id', 'user_id');
+    }
+    
+    /**
+     * Check if user follows another user.
+     *
+     * @param  int $userId
+     * @return bool
+     */
+    public function follows($userId)
+    {
+        return $this->following()->where('user_id', $userId)->exists();
+    }
+    
+    /**
+     * Followers.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follower_user', 'user_id', 'follower_id');
+    }
+    
+    /**
+     * Check if user is followerd by another user.
+     *
+     * @param  int $followerId
+     * @return bool
+     */
+    public function followerdBy($followerId)
+    {
+        return $this->followers()->where('follower_id', $followerId)->exists();
     }
 }
