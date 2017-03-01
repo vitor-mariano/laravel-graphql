@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Models\Post;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -87,5 +89,15 @@ class User extends Authenticatable
     public function followerdBy($followerId)
     {
         return $this->followers()->where('follower_id', $followerId)->exists();
+    }
+    
+    /**
+     * User feed.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function feed()
+    {
+        return Post::whereIn('user_id', $this->following()->pluck('id'));
     }
 }

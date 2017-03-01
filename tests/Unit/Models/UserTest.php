@@ -24,22 +24,6 @@ class UserTest extends TestCase
         
         $this->assertTrue($user->exists);
         
-        // Assert relationship with Post model is well defined.
-        
-        $post = $user->posts()->save(
-            factory(Post::class)->make()
-        );
-        
-        $this->assertTrue($post->exists);
-        
-        // Assert relationship with Comment model is well defined.
-        
-        $comment = $user->comments()->save(
-            factory(Comment::class)->make()
-        );
-        
-        $this->assertTrue($comment->exists);
-        
         // Test user following.
         
         $followable = factory(User::class)->create();
@@ -51,5 +35,27 @@ class UserTest extends TestCase
         
         // Assert user is not followed by another user.
         $this->assertFalse($user->followerdBy($followable->id));
+        
+        // Test user posts.
+        
+        $post = $followable->posts()->save(
+            factory(Post::class)->make()
+        );
+        
+        $this->assertTrue($post->exists);
+        
+        // Test user comments.
+        
+        $comment = $user->comments()->save(
+            factory(Comment::class)->make()
+        );
+        
+        $this->assertTrue($comment->exists);
+        
+        // Test user feed.
+        
+        $posts = $user->feed()->get();
+        
+        $this->assertEquals($posts->toArray(), [$post->toArray()]);
     }
 }

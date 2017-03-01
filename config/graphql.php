@@ -94,7 +94,8 @@ return [
                 'user' => \App\GraphQL\Query\UserQuery::class,
                 'profile' => \App\GraphQL\Query\ProfileQuery::class,
                 'post' => \App\GraphQL\Query\PostQuery::class,
-                'comment' => \App\GraphQL\Query\CommentQuery::class
+                'comment' => \App\GraphQL\Query\CommentQuery::class,
+                'feed' => \App\GraphQL\Query\FeedQuery::class
             ],
             'mutation' => [
                 'createToken' => \App\GraphQL\Mutation\CreateTokenMutation::class,
