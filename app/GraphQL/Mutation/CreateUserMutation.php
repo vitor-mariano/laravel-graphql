@@ -24,15 +24,15 @@ class CreateUserMutation extends Mutation
     {
         return [
             'name' => [
-                'type' => Type::string(),
+                'type' => Type::nonNull(Type::string()),
                 'rules' => ['required']
             ],
             'email' => [
-                'type' => Type::string(),
+                'type' => Type::nonNull(Type::string()),
                 'rules' => ['required', 'email', 'unique:users']
             ],
             'password' => [
-                'type' => Type::string(),
+                'type' => Type::nonNull(Type::string()),
                 'rules' => ['required', 'min:6']
             ]
         ];

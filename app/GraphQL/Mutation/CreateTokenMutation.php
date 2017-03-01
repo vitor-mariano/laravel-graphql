@@ -24,11 +24,11 @@ class CreateTokenMutation extends Mutation
     {
         return [
             'email' => [
-                'type' => Type::string(),
+                'type' => Type::nonNull(Type::string()),
                 'rules' => ['required', 'email']
             ],
             'password' => [
-                'type' => Type::string(),
+                'type' => Type::nonNull(Type::string()),
                 'rules' => ['required', 'min:6']
             ]
         ];

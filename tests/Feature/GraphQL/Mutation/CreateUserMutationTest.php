@@ -80,15 +80,11 @@ class CreateUserMutationTest extends TestCase
     public function testFieldsAreRequired()
     {
         $query = '
-            mutation createUser(
-                $name: String,
-                $email: String,
-                $password: String
-            ) {
+            mutation {
                 createUser(
-                    name: $name,
-                    email: $email,
-                    password: $password
+                    name: "",
+                    email: "",
+                    password: ""
                 ) {
                     name,
                     email
