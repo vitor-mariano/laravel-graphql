@@ -45,9 +45,9 @@ class FollowUserMutationTest extends TestCase
             'user_id' => $you->id
         ];
         
-        $reponse = $this->graphql($query, $params);
+        $response = $this->graphql($query, $params);
         
-        $reponse
+        $response
             // Assert response is OK.
             ->assertStatus(200)
             
