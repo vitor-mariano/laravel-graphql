@@ -79,7 +79,10 @@ class FollowUserMutationTest extends TestCase
         $response = $this->graphql($query, $params);
         
         $response
+            // Assert response is OK.
             ->assertStatus(200)
+            
+            // But the user id is invalid.
             ->assertJsonFragment([
                 'validation' => [
                     'user_id' => ['The selected user id is invalid.']
@@ -87,5 +90,31 @@ class FollowUserMutationTest extends TestCase
             ]);
     }
     
-    // Missing test follow self ID.
+    /**
+     * Test follow self ID.
+     *
+     * @return void
+     */
+    public function testFollowSelfId()
+    {
+        $user = factory(User::class)->create();
+        
+        $query = self::FOLLOW_USER_QUERY;
+        
+        $params = [
+            'token' => JWTAuth::fromUser($user),
+            'user_id' => $user->id
+        ];
+        
+        $response = $this->graphql($query, $params);
+        
+        $response
+            // Assert response is OK.
+            ->assertStatus(200)
+            
+            // But the user id is invalid.
+            ->assertJsonFragment([
+                'message' => 'Invalid argument "user_id": cannot follow yourself.'
+            ]);
+    }
 }
