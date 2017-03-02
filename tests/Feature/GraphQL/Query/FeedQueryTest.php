@@ -26,13 +26,27 @@ class FeedQueryTest extends TestCase
         
         $friend = factory(User::class)->create();
         
-        $me->following()->attach($friend->id);
+        $anotherFriend = factory(User::class)->create();
+        
+        $me->following()->attach([$friend->id, $anotherFriend->id]);
         
         $post = $friend->posts()->save(factory(Post::class)->make());
         
+        $anotherPost = $anotherFriend->posts()->save(factory(Post::class)->make());
+        
+        $token = JWTAuth::fromUser($me);
+        
         $query = '
-            query getFeed($token: String!) {
-                feed(token: $token) {
+            query getFeed(
+                $token: String!,
+                $limit: Int,
+                $offset: Int
+            ) {
+                feed(
+                    token: $token,
+                    limit: $limit,
+                    offset: $offset
+                ) {
                     id,
                     body,
                     user {
@@ -42,8 +56,40 @@ class FeedQueryTest extends TestCase
             }
         ';
         
+        $params = compact('token');
+        
+        $response = $this->graphql($query, $params);
+        
+        $response
+            // Assert response is OK.
+            ->assertStatus(200)
+            
+            // Assert response returns the expected object.
+            ->assertJsonFragment([
+                'feed' => [
+                    [
+                        'id' => $anotherPost->id,
+                        'body' => $anotherPost->body,
+                        'user' => [
+                            'name' => $anotherFriend->name
+                        ]
+                    ],
+                    [
+                        'id' => $post->id,
+                        'body' => $post->body,
+                        'user' => [
+                            'name' => $friend->name
+                        ]
+                    ]
+                ]
+            ]);
+        
+        // Test limit and offset.
+        
         $params = [
-            'token' => JWTAuth::fromUser($me)
+            'token' => $token,
+            'limit' => 1,
+            'offset' => 1
         ];
         
         $response = $this->graphql($query, $params);

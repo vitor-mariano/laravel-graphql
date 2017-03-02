@@ -27,6 +27,14 @@ class FeedQuery extends Query
         return [
             'token' => [
                 'type' => Type::nonNull(Type::string())
+            ],
+            'limit' => [
+                'type' => Type::int(),
+                'defaultValue' => 10
+            ],
+            'offset' => [
+                'type' => Type::int(),
+                'defaultValue' => 0
             ]
         ];
     }
@@ -35,6 +43,10 @@ class FeedQuery extends Query
     {
         $user = JWTAuth::setToken($args['token'])->toUser();
         
-        return $user->feed()->orderBy('created_at', 'desc')->get();
+        return $user->feed()
+            ->limit($args['limit'])
+            ->offset($args['offset'])
+            ->orderBy('id', 'desc')
+            ->get();
     }
 }
